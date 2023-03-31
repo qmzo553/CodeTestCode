@@ -62,5 +62,4 @@ public class Q37 {
 			System.out.println();
 		}
 	}
-
 }
