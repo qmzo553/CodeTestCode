@@ -3,19 +3,19 @@ package Greedy;
 public class GreedyMoney {
 
 	public static void main(String[] args) {
-		int n = 1260;
-		int count = 0;
 		
-		int[] coin_types = {500, 100, 50, 10};
+		int n = 1200;
+		int cnt = 0;
+		int[] coin = {500, 100, 50, 10};
 		
 		for(int i = 0; i < 4; i++) {
-			int coin = coin_types[i];
-			count += n / coin;
-			n %= coin;
+			
+			int ans = coin[i];
+			cnt += n / ans;
+			n %= ans;
 		}
 		
-		System.out.println(count);
-
+		System.out.println(cnt);
 	}
 
 }
