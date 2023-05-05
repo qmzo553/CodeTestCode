@@ -1,34 +1,48 @@
 package Greedy;
 
-import java.lang.reflect.Array;
 import java.util.*;
+import java.io.*;
 
 public class GreedyLargeNumber {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	private static int N, M, K, ans;
+	private static int[] arr;
+	
+	public static void main(String[] args) throws IOException {
 		
-		int n = sc.nextInt();
-		int m = sc.nextInt();
-		int k = sc.nextInt();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
 		
-		int[] arr = new int[n];
-		for(int i=0; i<n; i++) {
-			arr[i] = sc.nextInt();
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+		K = Integer.parseInt(st.nextToken());
+		
+		arr = new int[N];
+		st = new StringTokenizer(br.readLine());
+		for(int i = 0; i < N; i++) {
+			
+			arr[i] = Integer.parseInt(st.nextToken());
 		}
 		
 		Arrays.sort(arr);
-		int first = arr[n - 1];
-		int second = arr[n - 2];
 		
-		int cnt = (m / (k + 1)) * k;
-		cnt += m % (k + 1);
+		ans = 0;
+		while(true) {
+			for(int i = 0; i < K; i++) {
+				
+				if(M == 0) break;
+				
+				ans += arr[N - 1];
+				M--;
+			}
+			
+			if(M == 0) break;
+			
+			ans += arr[N - 2];
+			M--;
+		}
 		
-		int result = 0;
-		result += cnt * first;
-		result += (m - cnt) * second;
-		
-		System.out.println(result);
+		System.out.println(ans);
 	} 
 
 }

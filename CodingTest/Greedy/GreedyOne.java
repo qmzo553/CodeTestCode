@@ -1,27 +1,38 @@
 package Greedy;
 
 import java.util.*;
+import java.io.*;
 
 public class GreedyOne {
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	private static int N, K, count;
+	
+	public static void main(String[] args) throws IOException {
 		
-		int n = sc.nextInt();
-		int k = sc.nextInt();
-		int result = 0;
-
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		N = Integer.parseInt(st.nextToken());
+		K = Integer.parseInt(st.nextToken());
+		
+		count = 0;
+		
 		while(true) {
-			int target = (n / k) * k;
-			result += (n - target);
-			n = target;
-			if(n < k) break;
-			result += 1;
-			n /= k;
+			
+			if(N % K == 0) {
+				
+				N /= K;
+				count++;
+				continue;
+			}
+			
+			if(N == 1) break;
+			
+			N--;
+			count++;
 		}
 		
-		result += (n - 1);
-		System.out.println(result);
+		System.out.println(count);
 	}
 
 }
