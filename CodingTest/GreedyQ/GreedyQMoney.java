@@ -1,29 +1,37 @@
 package GreedyQ;
 
 import java.util.*;
+import java.io.*;
 
 public class GreedyQMoney {
 	
-	public static int n;
-	public static ArrayList<Integer> arrayList = new ArrayList<>();
+	private static int N, ans;
+	private static int[] arr;
 	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		n = sc.nextInt();
+	public static void main(String[] args) throws IOException{
 		
-		for(int i = 0; i < n; i++) {
-			arrayList.add(sc.nextInt());
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		N = Integer.parseInt(br.readLine());
+		arr = new int[N];
+		
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		for(int i = 0; i < N; i++) {
+			
+			arr[i] = Integer.parseInt(st.nextToken());
 		}
 		
-		Collections.sort(arrayList);
+		Arrays.sort(arr);
 		
-		int target = 1;
-		for(int i = 0; i < n; i++) {
-			if(target < arrayList.get(i)) break;
-			target += arrayList.get(i);
+		ans = 1;
+		
+		for(int i = 0; i < N; i++) {
+			
+			if(ans < arr[i]) break;
+			ans += arr[i];
 		}
 		
-		System.out.println(target);
+		System.out.println(ans);
 	}
 
 }

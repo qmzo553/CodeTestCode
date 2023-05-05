@@ -1,24 +1,30 @@
 package GreedyQ;
 
 import java.util.*;
+import java.io.*;
 
 public class GreedyQArithmetics {
 	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		String str = sc.next();
+	private static int num;
+	private static String str;
+	private static long ans;
+	
+	public static void main(String[] args) throws IOException {
 		
-		long result = str.charAt(0) - '0';
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		str = br.readLine();
+		
+		ans = str.charAt(0) - '0';
 		
 		for(int i = 1; i < str.length(); i++) {
-			int num = str.charAt(i) - '0';
-			if(num <= 1 || result <= 1) {
-				result += num;
-			} else {
-				result *= num;
-			}
+			
+			num = str.charAt(i) - '0';
+			
+			if(num <= 1 || ans <= 1) ans += num;
+			else ans *= num;
 		}
 		
-		System.out.println(result);
+		System.out.println(ans);
 	}
+	
 }
