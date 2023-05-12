@@ -1,35 +1,43 @@
 package RealizeQ;
 
 import java.util.*;
-
-import javax.sql.rowset.serial.SQLOutputImpl;
+import java.io.*;
 
 public class RealizeQRe {
 	
-	public static String str;
-	public static ArrayList<Character> result = new ArrayList<Character>();
-	public static int value = 0;
+	private static String str;
+	private static int sum;
+	private static ArrayList<Character> result = new ArrayList<>();
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		str = sc.next();
+	public static void main(String[] args) throws IOException {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		str = br.readLine();
 		
 		for(int i = 0; i < str.length(); i++) {
+			
 			if(Character.isLetter(str.charAt(i))) {
+				
 				result.add(str.charAt(i));
 			} else {
-				value += str.charAt(i) - '0';
+				
+				sum += str.charAt(i) - '0';
 			}
 		}
 		
 		Collections.sort(result);
-
+		
 		for(int i = 0; i < result.size(); i++) {
-			System.out.print(result.get(i));
+			
+			sb.append(result.get(i));
 		}
 		
-		if(value != 0) System.out.print(value);
-		System.out.println();
+		sb.append(sum);
+		
+		System.out.println(sb);
+		
 	}
 
 }
