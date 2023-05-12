@@ -3,35 +3,46 @@ package Realize;
 import java.util.*;
 
 public class RealizeUpDown {
+	
+	private static int N;
+	private static String[] moves;
+	private static char[] moveType = {'U', 'D', 'L', 'R'};
+	private static int[] dx = {-1, 1, 0, 0};
+	private static int[] dy = {0, 0, -1, 1};
 
 	public static void main(String[] args) {
+		
 		Scanner sc = new Scanner(System.in);
 		
-		int n = sc.nextInt();
+		N = sc.nextInt();
 		sc.nextLine();
-		String[] plans = sc.nextLine().split(" ");
-		int x = 1, y = 1;
+		moves = sc.nextLine().split(" ");
 		
-		int[] dx = {0, 0, -1, 1};
-		int[] dy = {-1, 1, 0, 0};
-		char[] moveTypes = {'L', 'R', 'U', 'D'};
+		int x = 1;
+		int y = 1;
+		int nx = 0;
+		int ny = 0;
 		
-		for(int i = 0; i < plans.length; i++) {
-			char plan = plans[i].charAt(0);
-			int nx = -1, ny = -1;
+		for(int i = 0; i < moves.length; i++) {
+			
+			char move  = moves[i].charAt(0);
+			
 			for(int j = 0; j < 4; j++) {
-				if(plan == moveTypes[j]) {
+				
+				if(move == moveType[j]) {
+					
 					nx = x + dx[j];
 					ny = y + dy[j];
 				}
 			}
 			
-			if(nx < 1 || ny < 1 || nx > n || ny > n) continue;
+			if(nx < 1 || ny < 1 || nx > N || ny > N) continue;
+			
 			x = nx;
 			y = ny;
 		}
 		
-		System.out.println(x + " " + y);
+		System.out.println(nx + " " + ny);
 	}
 
 }

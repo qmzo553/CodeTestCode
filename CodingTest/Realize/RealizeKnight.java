@@ -1,29 +1,34 @@
 package Realize;
 
 import java.util.*;
+import java.io.*;
 
 public class RealizeKnight {
+	
+	private static int count;
+	private static String str;
+	private static int[] dx = {2, 2, -1, 1, -2, -2, -1, 1};
+	private static int[] dy = {-1, 1, 2, 2, -1, 1, -1, -2};
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws IOException {
 		
-		String inputData = sc.nextLine();
-		int row = inputData.charAt(1) - '0';
-		int column = inputData.charAt(0) - 'a' + 1;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		int[] dx = {-2, -1, 1, 2, 2, 1, -1, -2};
-		int[] dy = {-1, -2, -2, -1, 1, 2, 2, 1};
+		str = br.readLine();
 		
-		int result = 0;
+		int x = str.charAt(0) - 'a' + 1;
+		int y = str.charAt(1) - '0';
+		count = 0;
+		
 		for(int i = 0; i < 8; i++) {
-			int nextRow = row + dx[i];
-			int nextColumn = column + dy[i];
-			if (nextRow >= 1 && nextRow <= 8 && nextColumn >= 1 && nextColumn <= 8) {
-				result += 1;
-			}
+			
+			int nx = x + dx[i];
+			int ny = y + dy[i];
+			
+			if(nx >= 1 && ny >= 1 && nx <= 8 && ny <= 8) count++;
 		}
 		
-		System.out.println(result);
+		System.out.println(count);
 	}
 
 }

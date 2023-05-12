@@ -1,67 +1,98 @@
 package Realize;
 
 import java.util.*;
+import java.io.*;
+
+class Person {
+	
+	int x, y, direction;
+	
+	Person(int x, int y, int direction) {
+		
+		this.x = x;
+		this.y = y;
+		this.direction = direction;
+	}
+}
 
 public class RealizeGame {
-	public static int n, m, x, y, direction;
-	public static int[][] d = new int[50][50];
-	public static int[][] arr = new int[50][50];
 	
-	public static int dx[] = {-1, 0, 1, 0};
-	public static int dy[] = {0, 1, 0, -1};
-	
-	public static void turn_left() {
-		direction -= 1;
-		if(direction == -1) direction = 3;
-	}
+	private static int N, M, count, turn;
+	private static int x, y, direction;
+	private static int[] dx = {-1, 0, 1, 0};
+	private static int[] dy = {0, 1, 0, -1};
+	private static int[][] map;
+	private static boolean[][] visited;
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws IOException {
 		
-		n = sc.nextInt();
-		m = sc.nextInt();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
 		
-		x = sc.nextInt();
-		y = sc.nextInt();
-		direction = sc.nextInt();
-		d[x][y] = 1;
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
 		
-		for(int i = 0; i < n; i++) {
-			for(int j = 0; j < m; j++) {
-				arr[i][j] = sc.nextInt();
+		map = new int[N][M];
+		visited = new boolean[N][M];
+		
+		st = new StringTokenizer(br.readLine());
+		x = Integer.parseInt(st.nextToken());
+		y = Integer.parseInt(st.nextToken());
+		direction = Integer.parseInt(st.nextToken());
+		Person p = new Person(x, y, direction);
+		
+		for(int i = 0; i < N; i++) {
+			
+			st = new StringTokenizer(br.readLine());
+			for(int j = 0; j < M; j++) {
+				
+				map[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
 		
-		int cnt = 1;
-		int turn_time = 0;
+		count = 1;
+		turn = 0;
+		visited[x][y] = true;
 		while(true) {
-			turn_left();
-			int nx = x + dx[direction];
-			int ny = y + dy[direction];
-			if(d[nx][ny] == 0 && arr[nx][ny] == 0) {
-				d[nx][ny] = 1;
-				x = nx;
-				y = ny;
-				cnt += 1;
-				turn_time = 0;
+			
+			p.direction--;
+			
+			if(p.direction == -1) p.direction = 3;
+			
+			int nx = p.x + dx[p.direction];
+			int ny = p.y + dy[p.direction];
+			
+			if(!visited[nx][ny] && map[nx][ny] == 0) {
+				
+				visited[nx][ny] = true;
+				p.x = nx;
+				p.y = ny;
+				count++;
+				turn = 0;
 				continue;
 			}
-			else turn_time += 1;
 			
-			if(turn_time == 4) {
-				nx = x - dx[direction];
-				ny = y - dy[direction];
+			else turn++;
+			
+			if(turn == 4) {
 				
-				if(arr[nx][ny] == 0) {
-					x = nx;
-					y = ny;
+				nx = p.x - dx[p.direction];
+				ny = p.y - dy[p.direction];
+				
+				if(map[nx][ny] == 0) {
+					
+					p.x = nx;
+					p.y = ny;
 				}
+				
 				else break;
-				turn_time = 0;
+				
+				turn = 0;
 			}
 		}
 		
-		System.out.println(cnt);
+		
+		System.out.println(count);
 	}
 
 }
