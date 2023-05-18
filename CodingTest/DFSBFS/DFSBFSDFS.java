@@ -8,19 +8,24 @@ public class DFSBFSDFS {
 	public static ArrayList<ArrayList<Integer>> graph = new ArrayList<ArrayList<Integer>>();
 	
 	public static void dfs(int x) {
+		
 		visited[x] = true;
-		System.out.println(x + " ");
+		System.out.print(x + " ");
 		
 		for(int i = 0; i < graph.get(x).size(); i++) {
+			
 			int y = graph.get(x).get(i);
 			if(!visited[y]) dfs(y);
 		}
 	}
 	
 	public static void main(String[] args) {
+		
 		for(int i = 0; i < 9; i++) {
+			
 			graph.add(new ArrayList<Integer>());
 		}
+		
 		
 		graph.get(1).add(2);
 		graph.get(1).add(3);
