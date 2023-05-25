@@ -1,63 +1,76 @@
 package SortingQ;
 
 import java.util.*;
+import java.io.*;
 
 class Student implements Comparable<Student> {
 	
-	private String name;
-	private int kor;
-	private int eng;
-	private int m;
+	String name;
+	int k, e, m;
 	
-	public Student(String name, int kor, int eng, int m) {
+	public Student(String name, int k, int e, int m) {
+		
 		this.name = name;
-		this.kor = kor;
-		this.eng = eng;
+		this.k = k;
+		this.e = e;
 		this.m = m;
 	}
 	
-	public String getName() {
-		return this.name;
-	}
-	
 	@Override
-	public int compareTo(Student other) {
-		if(this.kor == other.kor && this.eng == other.eng && this.m == other.m) {
-			return this.name.compareTo(other.name);
-		}
-		if(this.kor == other.kor && this.eng == other.eng) {
-			return Integer.compare(other.m, this.m);
-		}
-		if(this.kor == other.kor) {
-			return Integer.compare(this.eng, other.eng);
+	public int compareTo(Student o) {
+		
+		if(this.k == o.k) {
+			
+			if(this.e == o.e) {
+				
+				if(this.m == o.m) {
+					
+					return this.name.compareTo(o.name); 
+				}
+				
+				return Integer.compare(o.m, this.m);
+			}
+			
+			return Integer.compare(this.e, o.e);
 		}
 		
-		return Integer.compare(other.kor, this.kor);
+		return Integer.compare(o.k, this.k);
 	}
 }
 
 public class Q23 {
+	
+	public static int N, k, e, m;
+	public static String name;
+	public static ArrayList<Student> list = new ArrayList<>();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
-		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		StringTokenizer st;
 		
-		ArrayList<Student> students = new ArrayList<>();
-		for(int i = 0; i < n; i++) {
-			String name = sc.next();
-			int kor = sc.nextInt();
-			int eng = sc.nextInt();
-			int m = sc.nextInt();
-			students.add(new Student(name, kor, eng, m));
+		N = Integer.parseInt(br.readLine());
+		
+		for(int i = 0; i < N; i++) {
+			
+			st = new StringTokenizer(br.readLine());
+			name = st.nextToken();
+			k = Integer.parseInt(st.nextToken());
+			e = Integer.parseInt(st.nextToken());
+			m = Integer.parseInt(st.nextToken());
+			
+			list.add(new Student(name, k, e, m));
 		}
 		
-		Collections.sort(students);
+		Collections.sort(list);
 		
-		for(int i = 0; i < n; i++) {
-			System.out.println(students.get(i).getName());
+		for(int i = 0; i < N; i++) {
+			
+			sb.append(list.get(i).name).append('\n');
 		}
-
+		
+		System.out.println(sb);
 	}
 
 }

@@ -1,22 +1,29 @@
 package SortingQ;
 
 import java.util.*;
+import java.io.*;
 
 public class Q24 {
+	
+	public static int N;
+	public static int[] arr;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
-		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		ArrayList<Integer> arrayList = new ArrayList<>();
-		for(int i = 0; i < n; i++) {
-			arrayList.add(sc.nextInt());
+		N = Integer.parseInt(br.readLine());
+		arr = new int[N];
+		
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		for(int i = 0; i < N; i++) {
+			
+			arr[i] = Integer.parseInt(st.nextToken());
 		}
 		
-		Collections.sort(arrayList);
+		Arrays.sort(arr);
 		
-		System.out.println(arrayList.get((n - 1) / 2));
+		System.out.println(arr[(N - 1) / 2]);
 	}
 
 }
