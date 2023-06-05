@@ -1,6 +1,7 @@
 package ShortestPath;
 
 import java.util.*;
+import java.io.*;
 
 public class ShortestPathFW {
 	
@@ -8,48 +9,59 @@ public class ShortestPathFW {
 	public static int n, m;
 	public static int[][] graph = new int[501][501];
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws IOException {
 		
-		n = sc.nextInt();
-		m = sc.nextInt();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		
+		n = Integer.parseInt(br.readLine());
+		m = Integer.parseInt(br.readLine());
 		
 		for(int i = 0; i < 501; i++) {
+			
 			Arrays.fill(graph[i], INF);
 		}
 		
-		for(int a = 1; a <= n; a++) {
-			for(int b = 1; b <= n; b++) {
-				if (a == b) graph[a][b] = 0;
+		for(int i = 1; i <= n; i++) {
+			
+			for(int j = 1; j <= n; j++) {
+				
+				if(i == j) graph[i][j] = 0;
 			}
 		}
 		
 		for(int i = 0; i < m; i++) {
-			int a = sc.nextInt();
-			int b = sc.nextInt();
-			int c = sc.nextInt();
+			
+			st = new StringTokenizer(br.readLine());
+			
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			int c = Integer.parseInt(st.nextToken());
+			
 			graph[a][b] = c;
 		}
 		
-		for(int k = 1; k <= n; k++) {
-			for(int a = 1; a <= n; a++) {
-				for(int b =1; b <= n; b++) {
-					graph[a][b] = Math.min(graph[a][b], graph[a][k] + graph[k][b]);
+		for(int i = 1; i <= n; i++) {
+			
+			for(int j = 1; j <= n; j++) {
+				
+				for(int k = 1; k <= n; k++) {
+					
+					graph[j][k] = Math.min(graph[j][k], graph[j][i] + graph[i][k]);
 				}
 			}
 		}
 		
-		for(int a = 1; a <= n; a++) {
-			for(int b = 1; b <= n; b++) {
-				if(graph[a][b] == INF) {
-					System.out.print("INFINITY");
-				} else {
-					System.out.print(graph[a][b] + " ");
-				}
+		for(int i = 1; i <= n; i++) {
+			
+			for(int j = 1; j <= n; j++) {
+				
+				if(graph[i][j] == INF) System.out.println("INFINITY");
+				else System.out.print(graph[i][j] + " ");
 			}
+			
 			System.out.println();
 		}
-
 	}
 
 }
