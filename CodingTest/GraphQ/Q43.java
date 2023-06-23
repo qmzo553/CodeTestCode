@@ -1,6 +1,7 @@
 package GraphQ;
 
 import java.util.*;
+import java.io.*;
 
 class Edge implements Comparable<Edge> {
 	
@@ -31,9 +32,9 @@ class Edge implements Comparable<Edge> {
 	}
 	
 	@Override
-	public int compareTo(Edge other) {
+	public int compareTo(Edge o) {
 		
-		if(this.distance < other.distance) {
+		if(this.distance < o.distance) {
 			
 			return -1;
 		}
@@ -48,42 +49,29 @@ public class Q43 {
 	public static ArrayList<Edge> edges = new ArrayList<>();
 	public static int result = 0;
 	
-	public static int findParent(int x) {
+	public static void main(String[] args) throws IOException {
 		
-		if(x == parent[x]) return x;
-		return parent[x] = findParent(parent[x]);
-	}
-	
-	public static void unionParent(int a, int b) {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
 		
-		a = findParent(a);
-		b = findParent(b);
-		if(a < b) parent[b] = a;
-		else parent[a] = b;
-	}
-	
-	public static void main(String[] args) {
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
 		
-		Scanner sc = new Scanner(System.in);
-		
-		n = sc.nextInt();
-		m = sc.nextInt();
-		
-		for(int i = 1; i <= n; i++) {
+		for(int i = 1; i < m; i++) {
 			
 			parent[i] = i;
 		}
 		
 		for(int i = 0; i < m; i++) {
 			
-			int x = sc.nextInt();
-			int y = sc.nextInt();
-			int z = sc.nextInt();
+			st = new StringTokenizer(br.readLine());
+			int x = Integer.parseInt(st.nextToken());
+			int y = Integer.parseInt(st.nextToken());
+			int z = Integer.parseInt(st.nextToken());
 			edges.add(new Edge(z, x, y));
 		}
 		
 		Collections.sort(edges);
-		
 		int total = 0;
 		
 		for(int i = 0; i < edges.size(); i++) {
@@ -101,6 +89,20 @@ public class Q43 {
 		}
 		
 		System.out.println(total - result);
+	}
+	
+	public static int findParent(int x) {
+		
+		if(x == parent[x]) return x;
+		return parent[x] = findParent(parent[x]);
+	}
+	
+	public static void unionParent(int a, int b) {
+		
+		a = findParent(a);
+		b = findParent(b);
+		if(a < b) parent[b] = a;
+		else parent[a] = b;
 	}
 
 }

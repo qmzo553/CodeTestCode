@@ -1,6 +1,7 @@
 package GraphQ;
 
 import java.util.*;
+import java.io.*;
 
 public class Q45 {
 	
@@ -8,10 +9,12 @@ public class Q45 {
 	public static int[] indegree = new int[501];
 	public static boolean[][] graph = new boolean[501][501];
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
-		Scanner sc = new Scanner(System.in);
-		testCase = sc.nextInt();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		
+		testCase = Integer.parseInt(br.readLine());
 		
 		for(int tc = 0; tc < testCase; tc++) {
 			
@@ -21,16 +24,18 @@ public class Q45 {
 				Arrays.fill(graph[i], false);
 			}
 			
-			n = sc.nextInt();
+			n = Integer.parseInt(br.readLine());
 			
 			ArrayList<Integer> arrayList = new ArrayList<>();
+			st = new StringTokenizer(br.readLine());
 			for(int i = 0; i < n; i++) {
 				
-				int x = sc.nextInt();
+				int x = Integer.parseInt(st.nextToken());
 				arrayList.add(x);
 			}
 			
 			for(int i = 0; i < n; i++) {
+				
 				for(int j = i + 1; j < n; j++) {
 					
 					graph[arrayList.get(i)][arrayList.get(j)] = true;
@@ -38,26 +43,26 @@ public class Q45 {
 				}
 			}
 			
-			m = sc.nextInt();
+			m = Integer.parseInt(br.readLine());
 			for(int i = 0; i < m; i++) {
 				
-				int a = sc.nextInt();
-				int b = sc.nextInt();
+				st = new StringTokenizer(br.readLine());
+				int a = Integer.parseInt(br.readLine());
+				int b = Integer.parseInt(br.readLine());
 				
 				if(graph[a][b]) {
 					
 					graph[a][b] = false;
-	                graph[b][a] = true;
-	                indegree[a] += 1;
-	                indegree[b] -= 1;
-	                
+					graph[b][a] = true;
+					indegree[a] += 1;
+					indegree[b] -= 1;
 				} else {
 					
-                    graph[a][b] = true;
-                    graph[b][a] = false;
-                    indegree[a] -= 1;
-                    indegree[b] += 1;
-                }
+					graph[a][b] = true;
+					graph[b][a] = false;
+					indegree[a] -= 1;
+					indegree[b] += 1;
+				}
 			}
 			
 			ArrayList<Integer> result = new ArrayList<>();
@@ -65,9 +70,7 @@ public class Q45 {
 			
 			for(int i = 1; i <= arrayList.size(); i++) {
 				
-				if(indegree[i] == 0) {
-					q.offer(i);
-				}
+				if(indegree[i] == 0) q.offer(i);
 			}
 			
 			boolean certain = true;
@@ -95,10 +98,8 @@ public class Q45 {
 					if(graph[now][j]) {
 						
 						indegree[j] -= 1;
-						if(indegree[j] == 0) {
-							
-							q.offer(j);
-						}
+						
+						if(indegree[j] == 0) q.offer(j);
 					}
 				}
 			}
@@ -116,5 +117,4 @@ public class Q45 {
 			}
 		}
 	}
-
 }
