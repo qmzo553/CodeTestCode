@@ -1,31 +1,34 @@
 package Realize;
 
 import java.util.*;
-import java.io.*;
 
 public class RealizeTime {
 	
-	private static int N;
-	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		Scanner sc = new Scanner(System.in);
 		
-		N = Integer.parseInt(br.readLine());
-		int count = 0;
+		int h = sc.nextInt();
+		int cnt = 0;
 		
-		for(int i = 0; i <= N; i++) {
+		for(int i = 0; i <= h; i++) {
 			
-			for(int j = 0; j <= 59; j++) {
+			for(int j = 0; j < 60; j++) {
 				
-				for(int k = 0; k <= 59; k++) {
+				for(int k = 0; k < 60; k++) {
 					
-					if(i % 10 == 3 || j / 10 == 3 || j % 10 == 3 || k / 10 == 3 || k % 10 == 3) count++;
+					if(check(i, j, k)) cnt++;
 				}
 			}
 		}
 		
-		System.out.println(count);
+		System.out.println(cnt);
+	}
+	
+	public static boolean check(int h, int m, int s) {
+		
+		if(h % 10 == 3 || m / 10 == 3 || m % 10 == 3 || s / 10 == 3 || s % 10 == 3) return true;
+		return false;
 	}
 
 }

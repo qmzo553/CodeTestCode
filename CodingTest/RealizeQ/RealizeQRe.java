@@ -1,20 +1,17 @@
 package RealizeQ;
 
 import java.util.*;
-import java.io.*;
 
 public class RealizeQRe {
 	
-	private static String str;
-	private static int sum;
-	private static ArrayList<Character> result = new ArrayList<>();
+	public static String str;
+	public static ArrayList<Character> result = new ArrayList<Character>();
+	public static int value = 0;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
-		
-		str = br.readLine();
+		Scanner sc = new Scanner(System.in);
+		str = sc.next();
 		
 		for(int i = 0; i < str.length(); i++) {
 			
@@ -23,7 +20,7 @@ public class RealizeQRe {
 				result.add(str.charAt(i));
 			} else {
 				
-				sum += str.charAt(i) - '0';
+				value += str.charAt(i) - '0';
 			}
 		}
 		
@@ -31,13 +28,11 @@ public class RealizeQRe {
 		
 		for(int i = 0; i < result.size(); i++) {
 			
-			sb.append(result.get(i));
+			System.out.print(result.get(i));
 		}
 		
-		sb.append(sum);
-		
-		System.out.println(sb);
-		
+		if(value != 0) System.out.print(value);
+		System.out.println();
 	}
 
 }

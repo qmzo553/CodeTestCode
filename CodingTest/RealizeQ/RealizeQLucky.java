@@ -1,30 +1,28 @@
 package RealizeQ;
 
 import java.util.*;
-import java.io.*;
 
 public class RealizeQLucky {
 	
-	private static String str;
-	private static int sum1, sum2;
+	public static String str;
+	public static int summary = 0;
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-		str = br.readLine();
+		Scanner sc = new Scanner(System.in);
+		str = sc.next();
 		
 		for(int i = 0; i < str.length() / 2; i++) {
 			
-			sum1 += str.charAt(i) - 0;
+			summary += str.charAt(i) - '0';
 		}
 		
 		for(int i = str.length() / 2; i < str.length(); i++) {
 			
-			sum2 += str.charAt(i) - 0;
+			summary -= str.charAt(i) - '0';
 		}
 		
-		if(sum1 == sum2) System.out.println("LUCKY");
+		if(summary == 0) System.out.println("LUCKY");
 		else System.out.println("READY");
 	}
 
