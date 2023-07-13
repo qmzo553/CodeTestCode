@@ -4,35 +4,28 @@ import java.util.*;
 import java.io.*;
 
 public class GreedyOne {
-
-	private static int N, K, count;
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		Scanner sc = new Scanner(System.in);
 		
-		N = Integer.parseInt(st.nextToken());
-		K = Integer.parseInt(st.nextToken());
-		
-		count = 0;
+		int n = sc.nextInt();
+		int k = sc.nextInt();
+		int result = 0;
 		
 		while(true) {
 			
-			if(N % K == 0) {
-				
-				N /= K;
-				count++;
-				continue;
-			}
+			int target = (n / k) * k;
+			result += (n - target);
+			n = target;
 			
-			if(N == 1) break;
-			
-			N--;
-			count++;
+			if(n < k) break;
+			result += 1;
+			n /= k;
 		}
 		
-		System.out.println(count);
+		result += (n - 1);
+		System.out.println(result);
 	}
 
 }

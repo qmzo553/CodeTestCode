@@ -5,26 +5,26 @@ import java.io.*;
 
 public class GreedyQArithmetics {
 	
-	private static int num;
-	private static String str;
-	private static long ans;
-	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		str = br.readLine();
+		Scanner sc = new Scanner(System.in);
+		String str = sc.next();
 		
-		ans = str.charAt(0) - '0';
+		long result = str.charAt(0) - '0';
 		
 		for(int i = 1; i < str.length(); i++) {
 			
-			num = str.charAt(i) - '0';
-			
-			if(num <= 1 || ans <= 1) ans += num;
-			else ans *= num;
+			int num = str.charAt(i) - '0';
+			if(num <= 1 || result <= 1) {
+				
+				result += num;
+			} else {
+				
+				result += num;
+			}
 		}
 		
-		System.out.println(ans);
+		System.out.println(result);
 	}
 	
 }

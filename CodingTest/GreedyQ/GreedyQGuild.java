@@ -5,30 +5,30 @@ import java.io.*;
 
 public class GreedyQGuild {
 	
-	private static int N, count, result;
-	private static int[] arr;
+	public static int n;
+	public static ArrayList<Integer> arrayList = new ArrayList<>();
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();
 		
-		N = Integer.parseInt(br.readLine());
-		arr = new int[N];
-		
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		for(int i = 0; i < N; i++) {
+		for(int i = 0; i < n; i++) {
 			
-			arr[i] = Integer.parseInt(st.nextToken());
+			arrayList.add(sc.nextInt());
 		}
 		
-		Arrays.sort(arr);
+		Collections.sort(arrayList);
 		
-		for(int i = 0; i < N; i++) {
+		int result = 0;
+		int count = 0;
+		
+		for(int i = 0; i < n; i++) {
 			
-			count++;
-			if(count >= arr[i]) {
+			count += 1;
+			if(count >= arrayList.get(i)) {
 				
-				result++;
+				result += 1;
 				count = 0;
 			}
 		}

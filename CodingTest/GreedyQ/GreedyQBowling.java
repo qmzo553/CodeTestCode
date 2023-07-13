@@ -5,35 +5,30 @@ import java.io.*;
 
 public class GreedyQBowling {
 	
-	private static int N, M, count;
-	private static int[] arr;
+	public static int n, m;
+	public static int[] arr = new int[11];
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();
+		m = sc.nextInt();
 		
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		
-		arr = new int[N];
-		
-		st = new StringTokenizer(br.readLine());
-		for(int i = 0; i < N; i++) {
+		for(int i = 0; i < n; i++) {
 			
-			int x = Integer.parseInt(st.nextToken());
-			arr[x]++; 
+			int x = sc.nextInt();
+			arr[x] += 1;
 		}
 		
-		count = 0;
+		int result = 0;
 		
-		for(int i = 1; i <= M; i++) {
+		for(int i = 1; i <= m; i++) {
 			
-			N -= arr[i];
-			count += arr[i] * N;
+			n -= arr[i];
+			result += arr[i] * n;
 		}
 		
-		System.out.println(count);
+		System.out.println(result);
 	}
 
 }

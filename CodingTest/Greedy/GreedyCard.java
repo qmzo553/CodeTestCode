@@ -5,34 +5,28 @@ import java.io.*;
 
 public class GreedyCard {
 	
-	private static int N, M, min, ans;
-	private static int[][] arr;
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		Scanner sc = new Scanner(System.in);
 		
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
+		int n = sc.nextInt();
+		int m = sc.nextInt();
+		int result = 0;
 		
-		arr = new int[N][M];
-		ans = 0;
-		
-		for(int i = 0; i < N; i++) {
+		for(int i = 0; i < n; i++) {
 			
-			st = new StringTokenizer(br.readLine());
-			min = Integer.MAX_VALUE;
-			for(int j = 0; j < M; j++) {
+			int min_value = 10001;
+			for(int j = 0; j < m; j++) {
 				
-				arr[i][j] = Integer.parseInt(st.nextToken());
-				min = Math.min(min, arr[i][j]);
+				int x = sc.nextInt();
+				min_value = Math.min(min_value, x);
 			}
 			
-			ans = Math.max(ans, min);
+			result = Math.max(result, min_value);
 		}
 		
-		System.out.println(ans);
+		System.out.println(result);
 	}
 
 }

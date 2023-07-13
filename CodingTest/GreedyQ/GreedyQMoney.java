@@ -5,33 +5,29 @@ import java.io.*;
 
 public class GreedyQMoney {
 	
-	private static int N, ans;
-	private static int[] arr;
+	public static int n;
+	public static ArrayList<Integer> arrayList = new ArrayList<>();
 	
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();
 		
-		N = Integer.parseInt(br.readLine());
-		arr = new int[N];
-		
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		for(int i = 0; i < N; i++) {
+		for(int i = 0; i < n; i++) {
 			
-			arr[i] = Integer.parseInt(st.nextToken());
+			arrayList.add(sc.nextInt());
 		}
 		
-		Arrays.sort(arr);
+		Collections.sort(arrayList);
 		
-		ans = 1;
-		
-		for(int i = 0; i < N; i++) {
+		int target = 1;
+		for(int i = 0; i < n; i++) {
 			
-			if(ans < arr[i]) break;
-			ans += arr[i];
+			if(target < arrayList.get(i)) break;
+			target += arrayList.get(i);
 		}
 		
-		System.out.println(ans);
+		System.out.println(target);
 	}
 
 }
