@@ -5,7 +5,8 @@ import java.io.*;
 
 class Node2 {
 	
-	int x, y;
+	private int x;
+	private int y;
 	
 	public Node2(int x, int y) {
 		
@@ -26,26 +27,25 @@ class Node2 {
 
 public class DFSBFSMaze {
 	
-	public static int N, M;
-	public static int[][] map;
+	public static int n, m;
+	public static int[][] graph = new int[201][201];
 	public static int[] dx = {-1, 1, 0, 0};
-	public static int[] dy = { 0, 0, -1, 1};
+	public static int[] dy = {0, 0, -1, 1};
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		Scanner sc = new Scanner(System.in);
 		
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		map = new int[N][M];
+		n = sc.nextInt();
+		m = sc.nextInt();
+		sc.nextLine();
 		
-		for(int i = 0; i < N; i++) {
+		for(int i = 0; i < n; i++) {
 			
-			String str = br.readLine();
-			for(int j = 0; j < M; j++) {
+			String str = sc.nextLine();
+			for(int j = 0; j < m; j++) {
 				
-				map[i][j] = str.charAt(j) - '0';
+				graph[i][j] = str.charAt(j) - '0';
 			}
 		}
 		
@@ -68,19 +68,16 @@ public class DFSBFSMaze {
 				int nx = x + dx[i];
 				int ny = y + dy[i];
 				
-				if(nx < 0 || ny < 0 || nx >= N || ny >= M) continue;
+				if(nx < 0 || nx >= n || ny < 0 || ny >= 0) continue;
 				
-				if(map[nx][ny] == 0) continue;
-				
-				if(map[nx][ny] == 1) {
+				if(graph[nx][ny] == 1) {
 					
-					map[nx][ny] = map[x][y] + 1;
+					graph[nx][ny] = graph[x][y] + 1;
 					q.offer(new Node2(nx, ny));
 				}
 			}
 		}
 		
-		return map[N - 1][M - 1];
+		return graph[n - 1][m - 1];
 	}
-
 }

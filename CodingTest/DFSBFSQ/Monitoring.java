@@ -5,9 +5,10 @@ import java.io.*;
 
 class Combination {
 	
-	int n, r;
-	int[] now;
-	ArrayList<ArrayList<Position>> result;
+	private int n;
+	private int r;
+	private int[] now;
+	private ArrayList<ArrayList<Position>> result;
 	
 	public ArrayList<ArrayList<Position>> getResult() {
 		
@@ -22,7 +23,7 @@ class Combination {
 		this.result = new ArrayList<ArrayList<Position>>();
 	}
 	
-	public void combination(ArrayList<Position> arr, int depth, int index, int target ) {
+	public void combination(ArrayList<Position> arr, int depth, int index, int target) {
 		
 		if(depth == r) {
 			
@@ -38,6 +39,7 @@ class Combination {
 		
 		if(target == n) return;
 		now[index] = target;
+		
 		combination(arr, depth + 1, index + 1, target + 1);
 		combination(arr, depth, index, target + 1);
 	}
@@ -45,7 +47,8 @@ class Combination {
 
 class Position {
 	
-	int x, y;
+	private int x;
+	private int y;
 	
 	public Position(int x, int y) {
 		
@@ -66,28 +69,32 @@ class Position {
 
 public class Monitoring {
 	
-	public static int N;
-	public static char[][] map;
+	public static int n;
+	public static char[][] board = new char[6][6];
 	public static ArrayList<Position> teachers = new ArrayList<>();
 	public static ArrayList<Position> spaces = new ArrayList<>();
 	
 	public static void main(String[] args) throws IOException {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
+		Scanner sc = new Scanner(System.in);
 		
-		N = Integer.parseInt(br.readLine());
-		map = new char[N][N];
+		n = sc.nextInt();
 		
-		for(int i = 0; i < N; i++) {
+		for(int i = 0; i < n; i++) {
 			
-			st = new StringTokenizer(br.readLine());
-			for(int j = 0; j < N; j++) {
+			for(int j = 0; j < n; j++) {
 				
-				map[i][j] = st.nextToken().charAt(0);
+				board[i][j] = sc.next().charAt(0);
 				
-				if(map[i][j] == 'T') teachers.add(new Position(i, j));
-				if(map[i][j] == 'X') spaces.add(new Position(i, j));
+				if(board[i][j] == 'T') {
+					
+					teachers.add(new Position(i, j));
+				}
+				
+				if(board[i][j] == 'X') {
+					
+					spaces.add(new Position(i, j));
+				}
 			}
 		}
 		
@@ -102,7 +109,7 @@ public class Monitoring {
 				
 				int x = spaceList.get(i).get(j).getX();
 				int y = spaceList.get(i).get(j).getY();
-				map[x][y] = 'O';
+				board[x][y] = 'O';
 			}
 			
 			if(!process()) {
@@ -115,12 +122,65 @@ public class Monitoring {
 				
 				int x = spaceList.get(i).get(j).getX();
 				int y = spaceList.get(i).get(j).getY();
-				map[x][y] = 'X';
+				board[x][y] = 'X';
 			}
 		}
 		
 		if(found) System.out.println("YES");
 		else System.out.println("NO");
+	}
+	
+	public static boolean watch(int x, int y, int direction) {
+		
+		if(direction == 0) {
+			
+			while(y >= 0) {
+				
+				if(board[x][y] == 'S') return true;
+				
+				if(board[x][y] == 'O') return false;
+				
+				y -= 1;
+			}
+		}
+		
+		if(direction == 1) {
+			
+			while(y < n) {
+				
+				if(board[x][y] == 'S') return true;
+				
+				if(board[x][y] == 'O') return false;
+				
+				y += 1;
+			}
+		}
+		
+		if(direction == 2) {
+			
+			while(x >= 0) {
+				
+				if(board[x][y] == 'S') return true;
+				
+				if(board[x][y] == 'O') return false;
+				
+				x -= 1;
+			}
+		}
+		
+		if(direction == 3) {
+			
+			while(x < n) {
+				
+				if(board[x][y] == 'S') return true;
+				
+				if(board[x][y] == 'O') return false;
+				
+				x += 1;
+			}
+		}
+		
+		return false;
 	}
 	
 	public static boolean process() {
@@ -136,55 +196,6 @@ public class Monitoring {
 					
 					return true;
 				}
-			}
-		}
-		
-		return false;
-	}
-	
-	public static boolean watch(int x, int y, int direction) {
-		
-		if(direction == 0) {
-			
-			while(y >= 0) {
-				
-				if(map[x][y] == 'S') return true;
-				if(map[x][y] == 'O') return false;
-				
-				y -= 1;
-			}
-		}
-		
-		if(direction == 1) {
-			
-			while(y < N) {
-				
-				if(map[x][y] == 'S') return true;
-				if(map[x][y] == 'O') return false;
-				
-				y += 1;
-			}
-		}
-		
-		if(direction == 2) {
-			
-			while(x >= 0) {
-				
-				if(map[x][y] == 'S') return true;
-				if(map[x][y] == 'O') return false;
-				
-				x -= 1;
-			}
-		}
-		
-		if(direction == 3) {
-			
-			while(x < N) {
-				
-				if(map[x][y] == 'S') return true;
-				if(map[x][y] == 'O') return false;
-				
-				x += 1;
 			}
 		}
 		

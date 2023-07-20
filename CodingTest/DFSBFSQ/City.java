@@ -5,47 +5,43 @@ import java.io.*;
 
 public class City {
 	
-	public static int N, M, K, X;
-	public static ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+	public static int n, m, k, x;
+	public static ArrayList<ArrayList<Integer>> graph = new ArrayList<ArrayList<Integer>>();
 	public static int[] d = new int[300001];
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		Scanner sc = new Scanner(System.in);
 		
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		K = Integer.parseInt(st.nextToken());
-		X = Integer.parseInt(st.nextToken());
+		n = sc.nextInt();
+		m = sc.nextInt();
+		k = sc.nextInt();
+		x = sc.nextInt();
 		
-		for(int i = 0; i <= N; i++) {
+		for(int i = 0; i <= n; i++) {
 			
-			list.add(new ArrayList<Integer>());
+			graph.add(new ArrayList<Integer>());
 			d[i] = -1;
 		}
 		
-		for(int i = 0; i < M; i++) {
+		for(int i = 0; i < m; i++) {
 			
-			st = new StringTokenizer(br.readLine());
-			int a = Integer.parseInt(st.nextToken());
-			int b = Integer.parseInt(st.nextToken());
-			
-			list.get(a).add(b);
+			int a = sc.nextInt();
+			int b = sc.nextInt();
+			graph.get(a).add(b);
 		}
 		
-		d[X] = 0;
+		d[x] = 0;
 		
 		Queue<Integer> q = new LinkedList<Integer>();
-		q.offer(X);
-		
+		q.offer(x);
 		while(!q.isEmpty()) {
 			
 			int now = q.poll();
 			
-			for(int i = 0; i < list.get(now).size(); i++) {
+			for(int i = 0; i < graph.get(now).size(); i++) {
 				
-				int nextNode = list.get(now).get(i);
+				int nextNode = graph.get(now).get(i);
 				
 				if(d[nextNode] == -1) {
 					
@@ -56,9 +52,9 @@ public class City {
 		}
 		
 		boolean check = false;
-		for(int i = 1; i <= N; i++) {
+		for(int i = 1; i <= n; i++) {
 			
-			if(d[i] == K) {
+			if(d[i] == k) {
 				
 				System.out.println(i);
 				check = true;

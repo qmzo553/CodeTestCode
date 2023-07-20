@@ -5,42 +5,41 @@ import java.io.*;
 
 public class Operator {
 	
-	public static int N;
+	public static int n;
 	public static ArrayList<Integer> arr = new ArrayList<>();
-	public static int add, sub, mul, divi;
-	public static int min = Integer.MAX_VALUE;
-	public static int max = Integer.MIN_VALUE;
+	public static int add, sub, mul, div;
+	public static int minValue = (int) 1e9;
+	public static int maxValue = (int) -1e9;
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 	
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		Scanner sc = new Scanner(System.in);
 		
-		N = Integer.parseInt(br.readLine());
+		n = sc.nextInt();
 		
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		for(int i = 0; i < N; i++) {
+		for(int i = 0; i < n; i++) {
 			
-			arr.add(Integer.parseInt(st.nextToken()));
+			int x = sc.nextInt();
+			arr.add(x);
 		}
 		
-		st = new StringTokenizer(br.readLine());
-		add = Integer.parseInt(st.nextToken());
-		sub = Integer.parseInt(st.nextToken());
-		mul = Integer.parseInt(st.nextToken());
-		divi = Integer.parseInt(st.nextToken());
+		add = sc.nextInt();
+		sub = sc.nextInt();
+		mul = sc.nextInt();
+		div = sc.nextInt();
 		
 		dfs(1, arr.get(0));
 		
-		System.out.println(max);
-		System.out.println(min);
+		System.out.println(maxValue);
+		System.out.println(minValue);
 	}
 	
 	public static void dfs(int i, int now) {
 		
-		if(i == N) {
+		if(i == n) {
 			
-			min = Math.min(min, now);
-			max = Math.max(max, now);
+			minValue = Math.min(minValue, now);
+			maxValue = Math.max(maxValue, now);
 		} else {
 			
 			if(add > 0) {
@@ -48,27 +47,21 @@ public class Operator {
 				add -= 1;
 				dfs(i + 1, now + arr.get(i));
 				add += 1;
-			}
-			
-			if(sub > 0) {
+			} if(sub > 0) {
 				
 				sub -= 1;
 				dfs(i + 1, now - arr.get(i));
 				sub += 1;
-			}
-			
-			if(mul > 0) {
+			} if(mul > 0) {
 				
 				mul -= 1;
 				dfs(i + 1, now * arr.get(i));
 				mul += 1;
-			}
-			
-			if(divi > 0) {
+			} if(div > 0) {
 				
-				divi -= 1;
+				div -= 1;
 				dfs(i + 1, now / arr.get(i));
-				divi += 1;
+				div += 1;
 			}
 		}
 	}

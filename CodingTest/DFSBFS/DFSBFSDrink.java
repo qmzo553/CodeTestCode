@@ -5,31 +5,30 @@ import java.io.*;
 
 public class DFSBFSDrink {
 	
-	public static int N, M, result;
-	public static int[][] map;
+	public static int n, m;
+	public static int[][] graph = new int[1000][1000];
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		Scanner sc = new Scanner(System.in);
 		
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		map = new int[N][M];
+		n = sc.nextInt();
+		m = sc.nextInt();
+		sc.nextLine();
 		
-		for(int i = 0; i < N; i++) {
+		for(int i = 0; i < n; i++) {
 			
-			String str = br.readLine();
-			for(int j = 0; j < M; j++) {
+			String str = sc.nextLine();
+			for(int j = 0; j < m; j++) {
 				
-				map[i][j] = str.charAt(j) - '0';
+				graph[i][j] = str.charAt(j) - '0';
 			}
 		}
 		
-		result = 0;
-		for(int i = 0; i < N; i++) {
+		int result = 0;
+		for(int i = 0; i < n; i++) {
 			
-			for(int j = 0; j < M; j++) {
+			for(int j = 0; j < m; j++) {
 				
 				if(dfs(i, j)) {
 					
@@ -39,25 +38,26 @@ public class DFSBFSDrink {
 		}
 		
 		System.out.println(result);
+	
 	}
 	
 	public static boolean dfs(int x, int y) {
 		
-		if(x < 0 || y < 0 || x >= N || y >= M) return false;
+		if(x <= -1 || x >= n || y <= -1 || y >= m) {
+			
+			return false;
+		}
 		
-		if(map[x][y] == 0) {
+		if(graph[x][y] == 0) {
 			
-			map[x][y] = 1;
-			
+			graph[x][y] = 1;
 			dfs(x - 1, y);
 			dfs(x, y - 1);
 			dfs(x + 1, y);
 			dfs(x, y + 1);
-			
 			return true;
 		}
 		
 		return false;
 	}
-
 }

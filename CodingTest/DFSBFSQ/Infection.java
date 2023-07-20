@@ -5,7 +5,10 @@ import java.io.*;
 
 class Virus implements Comparable<Virus> {
 	
-	int index, second, x, y;
+	private int index;
+	private int second;
+	private int x;
+	private int y;
 	
 	public Virus(int index, int second, int x, int y) {
 		
@@ -38,78 +41,77 @@ class Virus implements Comparable<Virus> {
 	@Override
 	public int compareTo(Virus o) {
 		
-		if(this.index < o.index) return -1;
+		if(this.index < o.index) {
+			
+			return -1;
+		}
+		
 		return 1;
 	}
 }
 
 public class Infection {
 	
-	public static int N, K, S, X, Y;
-	public static int[][] map;
-	public static int[] dx = {-1, 1, 0, 0};
-	public static int[] dy = {0, 0, -1, 1};
+	public static int n, k;
+	public static int[][] graph = new int[200][200];
 	public static ArrayList<Virus> viruses = new ArrayList<Virus>();
+	public static int[] dx = {-1, 0, 1, 0};
+	public static int[] dy = {0, -1, 0, 1};
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		Scanner sc = new Scanner(System.in);
 		
-		N = Integer.parseInt(st.nextToken());
-		K = Integer.parseInt(st.nextToken());
-		map = new int[N][N];
+		n = sc.nextInt();
+		k = sc.nextInt();
 		
-		for(int i = 0; i < N; i++) {
+		for(int i = 0; i < n; i++) {
 			
-			st = new StringTokenizer(br.readLine());
-			for(int j = 0; j < N; j++) {
+			for(int j = 0; j < n; j++) {
 				
-				map[i][j] = Integer.parseInt(st.nextToken());
+				graph[i][j] = sc.nextInt();
 				
-				if(map[i][j] != 0) {
+				if(graph[i][j] != 0) {
 					
-					viruses.add(new Virus(map[i][j], 0, i, j));
+					viruses.add(new Virus(graph[i][j], 0, i, j));
 				}
 			}
 		}
 		
 		Collections.sort(viruses);
-		Queue<Virus> q = new LinkedList<>();
+		Queue<Virus> q = new LinkedList<Virus>();
 		for(int i = 0; i < viruses.size(); i++) {
 			
 			q.offer(viruses.get(i));
 		}
 		
-		st = new StringTokenizer(br.readLine());
-		S = Integer.parseInt(st.nextToken());
-		X = Integer.parseInt(st.nextToken());
-		Y = Integer.parseInt(st.nextToken());
+		int targetS = sc.nextInt();
+		int targetX = sc.nextInt();
+		int targetY = sc.nextInt();
 		
 		while(!q.isEmpty()) {
 			
 			Virus virus = q.poll();
 			
-			if(virus.getSecond() == S) break;
+			if(virus.getSecond() == targetS) break;
 			
 			for(int i = 0; i < 4; i++) {
 				
 				int nx = virus.getX() + dx[i];
 				int ny = virus.getY() + dy[i];
 				
-				if(nx >= 0 && ny >= 0 && nx < N && ny < N) {
+				if(0 <= nx && nx < n && 0 <= ny && ny < n) {
 					
-					if(map[nx][ny] == 0) {
+					if(graph[nx][ny] == 0) {
 						
-						map[nx][ny] = virus.getIndex();
+						graph[nx][ny] = virus.getIndex();
 						q.offer(new Virus(virus.getIndex(), virus.getSecond() + 1, nx, ny));
 					}
 				}
 			}
 		}
 		
-		System.out.println(map[X - 1][Y - 1]);
-		
+		System.out.println(graph[targetX - 1][targetY - 1]);
 	}
 
 }

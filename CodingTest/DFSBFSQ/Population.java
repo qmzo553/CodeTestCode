@@ -26,46 +26,43 @@ class Position2 {
 
 public class Population {
 	
-	public static int N, L, R;
+	public static int n, l, r;
 	public static int totalCount = 0;
-	public static int[][] map = new int[50][50];
+	public static int[][] graph = new int[50][50];
 	public static int[][] unions = new int[50][50];
-	public static int[] dx = {-1, 1, 0, 0};
-	public static int[] dy = {0, 0, -1, 1};
+	public static int[] dx = {-1, 0, 1, 0};
+	public static int[] dy = {0, -1, 0, 1};
 
 	public static void main(String[] args) throws IOException {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		Scanner sc = new Scanner(System.in);
 		
-		N = Integer.parseInt(st.nextToken());
-		L = Integer.parseInt(st.nextToken());
-		R = Integer.parseInt(st.nextToken());
+		n = sc.nextInt();
+		l = sc.nextInt();
+		r = sc.nextInt();
 		
-		for(int i = 0; i < N; i++) {
+		for(int i = 0; i < n; i++) {
 			
-			st = new StringTokenizer(br.readLine());
-			for(int j = 0; j < N; j++) {
+			for(int j = 0; j < n; j++) {
 				
-				map[i][j] = Integer.parseInt(st.nextToken()); 
+				graph[i][j] = sc.nextInt();
 			}
 		}
 		
 		while(true) {
 			
-			for(int i = 0; i < N; i++) {
+			for(int i = 0; i < n; i++) {
 				
-				for(int j = 0; j < N; j++) {
+				for(int j = 0; j < n; j++) {
 					
 					unions[i][j] = -1;
 				}
 			}
 			
 			int index = 0;
-			
-			for(int i = 0; i < N; i++) {
+			for(int i = 0; i < n; i++) {
 				
-				for(int j = 0; j < N; j++) {
+				for(int j = 0; j < n; j++) {
 					
 					if(unions[i][j] == -1) {
 						
@@ -75,7 +72,7 @@ public class Population {
 				}
 			}
 			
-			if(index == N * N) break;
+			if(index == n * n) break;
 			totalCount += 1;
 		}
 		
@@ -84,20 +81,18 @@ public class Population {
 	
 	public static void process(int x, int y, int index) {
 		
-		ArrayList<Position2> united = new ArrayList<>();
-		united.add(new Position2(x, y));
-		
-		Queue<Position2> q = new LinkedList<>();
-		q.offer(new Position2(x, y));
+		ArrayList<Position> united = new ArrayList<>();
+		united.add(new Position(x, y));
+		Queue<Position> q = new LinkedList<>();
+		q.offer(new Position(x, y));
 		unions[x][y] = index;
 		
-		int summary = map[x][y];
+		int summary = graph[x][y];
 		int count = 1;
 		
 		while(!q.isEmpty()) {
 			
-			Position2 pos = q.poll();
-			
+			Position pos = q.poll();
 			x = pos.getX();
 			y = pos.getY();
 			
@@ -106,17 +101,18 @@ public class Population {
 				int nx = x + dx[i];
 				int ny = y + dy[i];
 				
-				if(nx >= 0 && ny >= 0 && nx < N && ny < N && unions[nx][ny] == -1) {
+				if(0 <= nx && nx < n && 0 <= ny && ny < n && unions[nx][ny] == -1) {
 					
-					int gap = Math.abs(map[nx][ny] - map[x][y]);
-					if(gap >= L && gap <= R) {
+					int gap = Math.abs(graph[nx][ny] - graph[x][y]);
+					
+					if(l <= gap && gap <= r) {
 						
-						q.offer(new Position2(nx, ny));
+						q.offer(new Position(nx, ny));
 						
 						unions[nx][ny] = index;
-						summary += map[nx][ny];
+						summary += graph[nx][ny];
 						count += 1;
-						united.add(new Position2(nx, ny));
+						united.add(new Position(nx, ny));
 					}
 				}
 			}
@@ -126,7 +122,7 @@ public class Population {
 			
 			x = united.get(i).getX();
 			y = united.get(i).getY();
-			map[x][y] = summary / count;
+			graph[x][y] = summary / count;
 		}
 	}
 
