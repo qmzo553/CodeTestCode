@@ -5,8 +5,8 @@ import java.io.*;
 
 class Student implements Comparable<Student> {
 	
-	String name;
-	int score;
+	private String name;
+	private int score;
 	
 	public Student(String name, int score) {
 		
@@ -19,7 +19,7 @@ class Student implements Comparable<Student> {
 		return this.name;
 	}
 	
-	public int getScore() {
+	public int getSocre() {
 		
 		return this.score;
 	}
@@ -27,39 +27,32 @@ class Student implements Comparable<Student> {
 	@Override
 	public int compareTo(Student o) {
 		
-		if(this.score > o.score) return 1;
-		else return -1;
+		if(this.score < o.score) return -1;
+		return 1;
 	}
 }
 
 public class SortingStudent {
-	
-	public static int N, score;
-	public static String str;
-	public static ArrayList<Student> list = new ArrayList<>();
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
+		Scanner sc = new Scanner(System.in);
 		
-		N = Integer.parseInt(br.readLine());
+		int n = sc.nextInt();
 		
-		
-		for(int i = 0; i < N; i++) {
+		List<Student> students = new ArrayList<>();
+		for(int i = 0; i < n; i++) {
 			
-			st = new StringTokenizer(br.readLine());
-			str = st.nextToken();
-			score = Integer.parseInt(st.nextToken());
-			
-			list.add(new Student(str, score));
+			String name = sc.next();
+			int score = sc.nextInt();
+			students.add(new Student(name, score));
 		}
 		
-		Collections.sort(list);
+		Collections.sort(students);
 		
-		for(int i = 0; i < list.size(); i++) {
+		for(int i = 0; i < students.size(); i++) {
 			
-			System.out.print(list.get(i).getName() + " ");
+			System.out.print(students.get(i).getName() + " ");
 		}
 	}
 

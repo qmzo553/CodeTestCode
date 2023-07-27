@@ -4,30 +4,25 @@ import java.util.*;
 import java.io.*;
 
 public class SortingUp {
-	
-	public static int N;
-	public static int[] arr;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		Scanner sc = new Scanner(System.in);
 		
-		N = Integer.parseInt(br.readLine());
-		arr = new int[N];
+		int n = sc.nextInt();
 		
-		for(int i = 0; i < N; i++) {
+		Integer[] arr = new Integer[n];
+		for(int i = 0; i < n; i++) {
 			
-			arr[i] = Integer.parseInt(br.readLine());
+			arr[i] = sc.nextInt();
 		}
 		
-		Arrays.sort(arr);
-		//Arrays.sort(arr, Collections.reverseOrder());
+		Arrays.sort(arr, Collections.reverseOrder());
 		
-		for(int i = arr.length - 1; i >= 0; i--) {
+		for(int i = 0; i < n; i++) {
 			
 			System.out.print(arr[i] + " ");
 		}
-
 	}
 
 }

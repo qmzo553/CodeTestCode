@@ -4,52 +4,45 @@ import java.util.*;
 import java.io.*;
 
 public class SortingElement {
-	
-	public static int N, K;
-	public static Integer[] arr, brr;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+		Scanner sc = new Scanner(System.in);
 		
-		N = Integer.parseInt(st.nextToken());
-		K = Integer.parseInt(st.nextToken());
+		int n = sc.nextInt();
+		int k = sc.nextInt();
 		
-		arr = new Integer[N];
-		brr = new Integer[N];
-		
-		st = new StringTokenizer(br.readLine());
-		for(int i = 0; i < N; i++) {
+		Integer[] a = new Integer[n];
+		for(int i = 0; i < n; i++) {
 			
-			arr[i] = Integer.parseInt(st.nextToken());
+			a[i] = sc.nextInt();
 		}
 		
-		st = new StringTokenizer(br.readLine());
-		for(int i = 0; i < N; i++) {
+		Integer[] b = new Integer[n];
+		for(int i = 0; i < n; i++) {
 			
-			brr[i] = Integer.parseInt(br.readLine());
+			b[i] = sc.nextInt();
 		}
 		
-		Arrays.sort(arr);
-		Arrays.sort(brr, Collections.reverseOrder());
+		Arrays.sort(a);
+		Arrays.sort(b, Collections.reverseOrder());
 		
-		for(int i = 0; i < K; i++) {
+		for(int i = 0; i < k; i++) {
 			
-			if(arr[i] < brr[i]) {
+			if(a[i] < b[i]) {
 				
-				int temp = arr[i];
-				arr[i] = brr[i];
-				brr[i] = temp;
+				int temp = a[i];
+				a[i] = b[i];
+				b[i] = temp;
 			}
 			
 			else break;
 		}
 		
 		long result = 0;
-		for(int i = 0; i < N; i++) {
+		for(int i = 0; i < n; i++) {
 			
-			result += arr[i];
+			result += a[i];
 		}
 		
 		System.out.println(result);
